@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 5;
     
     private bool isGrounded = true;
+    private Vector3 finalMove;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,11 +30,29 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         HandleJump();
+        rb.AddForce(finalMove, ForceMode.Force);
     }
 
     private void HandleMovement()
     {
+        // Refer to ThirdPersonPhysicsMovement.cs from UtsabKDas 
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+        
+        Vector3 cameraForward = cameraTransform.forward;
+        Vector3 cameraRight = cameraTransform.right;
+        cameraForward.Normalize();
+        cameraRight.Normalize();
 
+        Vector3 cameraRelativeMoveDirection = ((cameraRight * moveX) + (cameraForward * moveZ)).normalized;
+
+        if (cameraRelativeMoveDirection.sqrMagnitude > .001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMoveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+        }
+
+        finalMove = cameraRelativeMoveDirection * moveSpeed;
     }
 
     private void HandleJump()
