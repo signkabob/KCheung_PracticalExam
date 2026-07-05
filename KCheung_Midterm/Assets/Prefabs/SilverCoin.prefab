@@ -52,7 +52,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotateSpeed: 30
   minY: 0.5
-  maxY: 2.5
+  maxY: 1.5
   moveUp: 1
 --- !u!33 &1778614009628578186
 MeshFilter:

@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    [SerializeField] GameObject coinSpawner;
     [SerializeField] private int score = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        coinSpawner = GameObject.Find("CoinSpawner");
         Debug.Log("SCORE: " + score);    
     }
 
@@ -29,12 +31,18 @@ public class ScoreManager : MonoBehaviour
     private void Victory()
     {
         Debug.Log("You win!");
+        GameOver();
     } 
+
+    public void DeadPlayer()
+    {
+        Debug.Log("You lose!");
+        GameOver();
+    }
 
     public void GameOver()
     {
-        
-    }
+        Destroy(coinSpawner);
 
-    
+    }
 }

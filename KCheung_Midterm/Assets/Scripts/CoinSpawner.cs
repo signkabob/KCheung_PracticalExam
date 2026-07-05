@@ -4,6 +4,7 @@ using UnityEngine;
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] coinPrefabs;
+    [SerializeField] private int numOfSpawnStart = 5;
     [SerializeField] private float repeatRate = 3f;
     [SerializeField] private float spawnDelay = 5f;
     [SerializeField] private float maxBound = 45.0f;
@@ -11,6 +12,11 @@ public class CoinSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        for (int i = 0; i < numOfSpawnStart; i++)
+        {
+            SpawnCoin();
+        }
+
         InvokeRepeating("SpawnCoin", spawnDelay, repeatRate);
     }
 

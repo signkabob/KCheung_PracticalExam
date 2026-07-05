@@ -7,7 +7,7 @@ public class Coin : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float rotateSpeed = 30;
     [SerializeField] private float minY = 0.5f;
-    [SerializeField] private float maxY = 2.5f;
+    [SerializeField] private float maxY = 1.5f;
     [SerializeField] private bool moveUp = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
