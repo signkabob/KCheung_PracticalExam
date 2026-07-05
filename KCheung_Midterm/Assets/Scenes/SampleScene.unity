@@ -247,7 +247,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
   score: 5
+  moveSpeed: 2
   rotateSpeed: 30
+  minY: 0.5
+  maxY: 2.5
+  moveUp: 1
 --- !u!1 &289532380
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +779,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
   score: 3
+  moveSpeed: 2
   rotateSpeed: 30
+  minY: 0.5
+  maxY: 2.5
+  moveUp: 1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1346,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
   score: 1
+  moveSpeed: 2
   rotateSpeed: 30
+  minY: 0.5
+  maxY: 2.5
+  moveUp: 1
 --- !u!1 &1839839081
 GameObject:
   m_ObjectHideFlags: 0
