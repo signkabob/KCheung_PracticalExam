@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
         
+        // TODO: Stop ice sliding later 
+
         Vector3 cameraForward = cameraTransform.forward;
         Vector3 cameraRight = cameraTransform.right;
         cameraForward.Normalize();
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMoveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
         }
-
+        
         finalMove = cameraRelativeMoveDirection * moveSpeed;
     }
 
