@@ -1,6 +1,13 @@
 using UnityEngine;
-
-// Refer to CameraController.cs from UtsabKDas
+/**
+ * Midterm Exam - CameraController.cs
+ * Name: Ka Bo Cheung
+ * Date: 07/06/2026
+ * Course: GAME-2341-001
+ * 
+ * Script for the camera set behind the player and rotating around them based on the mouse cuscor
+ * Note: Strongly refer to CameraController.cs from UtsabKDas
+ */
 public class CameraController : MonoBehaviour
 {
     [Header("Target")]

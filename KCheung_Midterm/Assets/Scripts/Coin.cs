@@ -1,5 +1,13 @@
 using UnityEngine;
 
+/**
+ * Midterm Exam - Coin.cs
+ * Name: Ka Bo Cheung
+ * Date: 07/06/2026
+ * Course: GAME-2341-001
+ * 
+ * Script for the coin movement and interactions
+ */
 public class Coin : MonoBehaviour
 {
     private ScoreManager scoreManager;
@@ -45,8 +53,13 @@ public class Coin : MonoBehaviour
         }      
     }
 
+    /// <summary>
+    /// Detects trigger collisions
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
+        // If the player touches the coin, the coin is destroyed and give score points
         if (other.gameObject.CompareTag("Player"))
         {
             scoreManager.AddScore(points);

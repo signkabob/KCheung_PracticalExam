@@ -1,5 +1,13 @@
 using UnityEngine;
 
+/**
+ * Midterm Exam - PlayerController.cs
+ * Name: Ka Bo Cheung
+ * Date: 07/06/2026
+ * Course: GAME-2341-001
+ * 
+ * Script for the player input movement, physics simulations, and interactions
+ */
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
@@ -103,7 +111,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Detects collision with other rigidbody objects
+    /// Detects collisions with other rigidbody objects
     /// </summary>
     /// <param name="other">Collider</param>
     private void OnCollisionEnter(Collision other)
@@ -114,6 +122,9 @@ public class PlayerController : MonoBehaviour
         }
     } 
 
+    /// <summary>
+    /// Calls for the game over state and stops the player movement when the health is zero
+    /// </summary>
     public void DeadPlayer()
     {
         gameOver = true;

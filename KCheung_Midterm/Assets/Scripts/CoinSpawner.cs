@@ -1,6 +1,14 @@
 using UnityEngine;
 
-// Refer to EnemeySpawner.cs from UtsabKDas
+/**
+ * Midterm Exam - CoinSpawner.cs
+ * Name: Ka Bo Cheung
+ * Date: 07/06/2026
+ * Course: GAME-2341-001
+ * 
+ * Script for the coin spawner
+ * Note: Refer to EnemeySpawner.cs from UtsabKDas
+ */
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] coinPrefabs;
@@ -20,12 +28,9 @@ public class CoinSpawner : MonoBehaviour
         InvokeRepeating("SpawnCoin", spawnDelay, repeatRate);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Spawns a random coin from bronze, silver, or gold at random position within the room
+    /// </summary>
     private void SpawnCoin()
     {
         GameObject spawnedCoin = coinPrefabs[Random.Range(0, coinPrefabs.Length)];
@@ -33,6 +38,9 @@ public class CoinSpawner : MonoBehaviour
         Instantiate(spawnedCoin, spawnPosition, spawnedCoin.transform.rotation);
     }
 
+    /// <summary>
+    /// Stops spawning coins
+    /// </summary>
     public void StopSpawnCoin()
     {
         CancelInvoke();

@@ -1,6 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * Midterm Exam - Obstacle.cs
+ * Name: Ka Bo Cheung
+ * Date: 07/06/2026
+ * Course: GAME-2341-001
+ * 
+ * Script for the obstacle movement and interactions
+ */
 public class Obstacle : MonoBehaviour
 {
     private Rigidbody rb;
@@ -22,6 +30,7 @@ public class Obstacle : MonoBehaviour
         obstacleSpawner = GameObject.Find("ObstacleSpawner").GetComponent<ObstacleSpawner>();
         wallLayer = LayerMask.NameToLayer("Wall");
         
+        // Generate random damage, random speed, and random direction
         damage = Random.Range(minDamage, maxDamage + 1);
         float randomSpeed = Random.Range(minSpeed, maxSpeed);
         float randomX = Random.Range(-maxBound, maxBound);
@@ -31,14 +40,20 @@ public class Obstacle : MonoBehaviour
         rb.linearVelocity = randomDirection * randomSpeed;
     }
 
+    /// <summary>
+    /// Detects trigger collisions
+    /// </summary>
+    /// <param name="other">Collider</param>
     private void OnTriggerEnter(Collider other)
     {
+        // If the obstacle hits the wall, destroy the obstacle and call for a new spawn
         if (other.gameObject.layer == wallLayer)
         {
             obstacleSpawner.ReplaceDestroyedObstacle();
             Destroy(gameObject);
         }
 
+        // Similar to the wall detection but dealt damage to the player in addition
         if (other.gameObject.CompareTag("Player"))
         {
             other.GetComponent<PlayerHealth>().TakeDamage(damage);
