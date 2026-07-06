@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] GameObject coinSpawner;
+    private CoinSpawner coinSpawner;
+    private ObstacleSpawner obstacleSpawner;
+
     [SerializeField] private int score = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        coinSpawner = GameObject.Find("CoinSpawner");
+        coinSpawner = GameObject.Find("CoinSpawner").GetComponent<CoinSpawner>();
+        obstacleSpawner = GameObject.Find("ObstacleSpawner").GetComponent<ObstacleSpawner>();
         Debug.Log("SCORE: " + score);    
     }
 
@@ -34,7 +37,7 @@ public class ScoreManager : MonoBehaviour
         GameOver();
     } 
 
-    public void DeadPlayer()
+    public void Loss()
     {
         Debug.Log("You lose!");
         GameOver();
@@ -42,7 +45,7 @@ public class ScoreManager : MonoBehaviour
 
     public void GameOver()
     {
-        Destroy(coinSpawner);
-
+        coinSpawner.StopSpawnCoin();
+        obstacleSpawner.StopSpawnObstacle();
     }
 }

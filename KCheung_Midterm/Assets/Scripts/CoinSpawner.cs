@@ -32,4 +32,9 @@ public class CoinSpawner : MonoBehaviour
         Vector3 spawnPosition = new Vector3(Random.Range(-maxBound, maxBound), spawnedCoin.transform.position.y, Random.Range(-maxBound, maxBound));
         Instantiate(spawnedCoin, spawnPosition, spawnedCoin.transform.rotation);
     }
+
+    public void StopSpawnCoin()
+    {
+        CancelInvoke();
+    }
 }

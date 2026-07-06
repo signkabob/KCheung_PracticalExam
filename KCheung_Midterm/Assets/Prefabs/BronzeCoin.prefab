@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2828792119398716695}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 20}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.05, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,13 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beff84001564eb34387106018cdd31e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Coin
-  scoreManager: {fileID: 0}
   points: 1
   moveSpeed: 2
   rotateSpeed: 90
   minY: 0.5
   maxY: 1.5
-  moveUp: 1
 --- !u!33 &5778038645952582
 MeshFilter:
   m_ObjectHideFlags: 0

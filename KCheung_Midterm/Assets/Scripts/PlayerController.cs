@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     
     private bool isGrounded = true;
     private Vector3 finalMove;
+    private bool gameOver = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,13 +23,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CalculateMovement();
+        if (!gameOver)
+        {
+            CalculateMovement();
+        }
     }
 
     void FixedUpdate()
     {
-        HandleJump();
-        HandleMovement();
+        if (!gameOver)
+        {
+            HandleJump();
+            HandleMovement();
+        }
     }
 
     /// <summary>
@@ -105,5 +112,10 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
+    } 
+
+    public void DeadPlayer()
+    {
+        gameOver = true;
     }
 }

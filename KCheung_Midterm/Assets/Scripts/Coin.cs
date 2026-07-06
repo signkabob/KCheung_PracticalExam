@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private ScoreManager scoreManager;
+    private ScoreManager scoreManager;
+    private bool moveUp = true;
+
     [SerializeField] private int points;
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float rotateSpeed = 90;
     [SerializeField] private float minY = 0.5f;
     [SerializeField] private float maxY = 1.5f;
-    [SerializeField] private bool moveUp = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
