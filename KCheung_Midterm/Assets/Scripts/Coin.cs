@@ -5,7 +5,7 @@ public class Coin : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private int points;
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float rotateSpeed = 30;
+    [SerializeField] private float rotateSpeed = 90;
     [SerializeField] private float minY = 0.5f;
     [SerializeField] private float maxY = 1.5f;
     [SerializeField] private bool moveUp = true;
@@ -19,22 +19,21 @@ public class Coin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // Should be rotating around y-axis; something's wrong with its local or world rotation
-        // transform.Rotate(transform.rotation.x, rotateSpeed * Time.deltaTime, transform.rotation.z);
-
+        // The coin's local x-axis is upward due to its predetermined rotation.
+        // Rotate around the local x-axis
+        transform.Rotate(rotateSpeed * Time.deltaTime, 0, 0);
         
-        // Moving up and down 
+        // Move up and down through the local x-axis
         if (moveUp)
         {
-            transform.Translate(-transform.up * moveSpeed * Time.deltaTime);
-           
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);  
         }
         else
         {
-            transform.Translate(transform.up * moveSpeed * Time.deltaTime);
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }
 
+        // Move the other way after reaching the bound 
         if (transform.position.y >= maxY)
         {
             moveUp = false;
@@ -42,7 +41,7 @@ public class Coin : MonoBehaviour
         else if (transform.position.y <= minY)
         {
             moveUp = true;
-        }
+        }      
     }
 
     private void OnTriggerEnter(Collider other)
