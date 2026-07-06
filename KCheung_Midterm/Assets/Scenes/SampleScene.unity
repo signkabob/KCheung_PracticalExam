@@ -867,8 +867,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401477800}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 2
+  m_LinearDamping: 4
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -994,9 +994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbacf6fca8943c5449c709500df5cfa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 12
+  moveSpeed: 2
   rotateSpeed: 12
-  jumpForce: 5
+  jumpForce: 20
 --- !u!1 &1488461732
 GameObject:
   m_ObjectHideFlags: 0

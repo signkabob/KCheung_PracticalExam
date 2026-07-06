@@ -3,12 +3,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-    private Camera camera;
     private Transform cameraTransform;
 
-    [SerializeField] private float moveSpeed = 12f;
+    [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float rotateSpeed = 12f;
-    [SerializeField] private float jumpForce = 5;
+    [SerializeField] private float jumpForce = 20;
     
     private bool isGrounded = true;
     private Vector3 finalMove;
@@ -18,47 +17,59 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cameraTransform = Camera.main.transform;
-        camera = cameraTransform.GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleMovement();
+        CalculateMovement();
     }
 
     void FixedUpdate()
     {
         HandleJump();
-        rb.AddForce(finalMove, ForceMode.Force);
+        HandleMovement();
     }
 
-    private void HandleMovement()
+    /// <summary>
+    /// Calculates the movement vector from the camera view based on the inputs
+    /// Note: Refer to ThirdPersonPhysicsMovement.cs from UtsabKDas 
+    /// </summary>
+    private void CalculateMovement()
     {
-        // Refer to ThirdPersonPhysicsMovement.cs from UtsabKDas 
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        finalMove = Vector3.zero;   
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
         
-        // TODO: Stop ice sliding later 
-
-        Vector3 cameraForward = cameraTransform.forward;
-        Vector3 cameraRight = cameraTransform.right;
-        cameraForward.Normalize();
-        cameraRight.Normalize();
-
-        Vector3 cameraRelativeMoveDirection = ((cameraRight * moveX) + (cameraForward * moveZ)).normalized;
-
-        if (cameraRelativeMoveDirection.sqrMagnitude > .001f)
+        // If no input, then no need to calculate the vector
+        if ((moveX != 0.0f) || (moveZ != 0.0f))
         {
-            Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMoveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraRight = cameraTransform.right;
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
+
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            Vector3 cameraRelativeMoveDirection = ((cameraRight * moveX) + (cameraForward * moveZ)).normalized;
+
+            if (cameraRelativeMoveDirection.sqrMagnitude > .001f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeMoveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
+
+            finalMove = cameraRelativeMoveDirection * moveSpeed;
         }
-        
-        finalMove = cameraRelativeMoveDirection * moveSpeed;
     }
 
+    /// <summary>
+    /// Handles jumping phsyics simulations
+    /// </summary>
     private void HandleJump()
     {
+        // Jump if the player is on the ground
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -66,6 +77,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles movement physics simulations 
+    /// Note: Player's linear damping is 4 to increase fiction and prevent sliding
+    /// </summary>
+    private void HandleMovement()
+    {
+        // Move the player immediately without acceralation and time
+        if (finalMove != Vector3.zero)
+        {
+            rb.AddForce(finalMove, ForceMode.VelocityChange);
+        }
+        // Eliminate any velocity to force-stop the non y-axis movement
+        else
+        {
+            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+        }
+    }
+
+    /// <summary>
+    /// Detects collision with other rigidbody objects
+    /// </summary>
+    /// <param name="other">Collider</param>
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ground"))

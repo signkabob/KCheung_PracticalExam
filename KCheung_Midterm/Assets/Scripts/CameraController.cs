@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxPitch = 60f;
 
     [SerializeField] private float yaw;
-    [SerializeField] private float pitch =15f;
+    [SerializeField] private float pitch = 15f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
